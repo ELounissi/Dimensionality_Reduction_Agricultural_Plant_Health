@@ -1,0 +1,41 @@
+{
+  "release": "paper_results",
+  "python": "3.11.5",
+  "numpy": "1.26.4",
+  "pandas": "2.2.1",
+  "scipy": "1.13.1",
+  "scikit_learn": "1.8.0",
+  "torch": "2.12.0",
+  "tensorflow": "2.19.1",
+  "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "crops": ["Onion", "Lettuce", "Carrot"],
+  "dimensionality_reduction": [
+    "No Reduction",
+    "PCA",
+    "KernelPCA",
+    "Isomap",
+    "MDS",
+    "BOTCAST"
+  ],
+  "models": [
+    "Decision tree",
+    "Random forest",
+    "k-NN",
+    "MLP",
+    "LSTM",
+    "RNN GRU"
+  ],
+  "tasks": ["classification", "regression"],
+  "split": "random",
+  "classical_split": "80/20 train/test with five-fold CV inside training",
+  "neural_split": "70/10/20 train/validation/test",
+  "sequence_lengths": {
+    "MLP": 1,
+    "LSTM": 1,
+    "RNN GRU": 1,
+    "BOTCAST + RNN GRU": 7
+  },
+  "experimental_units": 360,
+  "run_rows": 2160,
+  "failed_units": 0
+}

@@ -1,0 +1,73 @@
+task,model,dr,wins,losses,threshold
+classification,Decision tree,No Reduction,2,3,0.01
+classification,Decision tree,PCA,0,3,0.01
+classification,Decision tree,KernelPCA,1,3,0.01
+classification,Decision tree,Isomap,0,6,0.01
+classification,Decision tree,MDS,2,4,0.01
+classification,Decision tree,BOTCAST,3,1,0.01
+classification,Random forest,No Reduction,5,3,0.01
+classification,Random forest,PCA,4,2,0.01
+classification,Random forest,KernelPCA,2,4,0.01
+classification,Random forest,Isomap,3,3,0.01
+classification,Random forest,MDS,4,2,0.01
+classification,Random forest,BOTCAST,6,1,0.01
+classification,k-NN,No Reduction,4,3,0.01
+classification,k-NN,PCA,4,3,0.01
+classification,k-NN,KernelPCA,4,2,0.01
+classification,k-NN,Isomap,3,3,0.01
+classification,k-NN,MDS,4,3,0.01
+classification,k-NN,BOTCAST,2,4,0.01
+classification,MLP,No Reduction,2,3,0.01
+classification,MLP,PCA,5,0,0.01
+classification,MLP,KernelPCA,4,3,0.01
+classification,MLP,Isomap,2,3,0.01
+classification,MLP,MDS,5,2,0.01
+classification,MLP,BOTCAST,4,2,0.01
+classification,LSTM,No Reduction,2,2,0.01
+classification,LSTM,PCA,6,1,0.01
+classification,LSTM,KernelPCA,2,3,0.01
+classification,LSTM,Isomap,2,2,0.01
+classification,LSTM,MDS,4,2,0.01
+classification,LSTM,BOTCAST,4,2,0.01
+classification,RNN GRU,No Reduction,5,3,0.01
+classification,RNN GRU,PCA,6,0,0.01
+classification,RNN GRU,KernelPCA,5,0,0.01
+classification,RNN GRU,Isomap,5,2,0.01
+classification,RNN GRU,MDS,5,1,0.01
+classification,RNN GRU,BOTCAST,0,5,0.01
+regression,Decision tree,No Reduction,3,0,0.01
+regression,Decision tree,PCA,1,0,0.01
+regression,Decision tree,KernelPCA,1,0,0.01
+regression,Decision tree,Isomap,0,4,0.01
+regression,Decision tree,MDS,0,2,0.01
+regression,Decision tree,BOTCAST,2,4,0.01
+regression,Random forest,No Reduction,5,0,0.01
+regression,Random forest,PCA,6,0,0.01
+regression,Random forest,KernelPCA,4,0,0.01
+regression,Random forest,Isomap,1,1,0.01
+regression,Random forest,MDS,5,0,0.01
+regression,Random forest,BOTCAST,1,2,0.01
+regression,k-NN,No Reduction,3,0,0.01
+regression,k-NN,PCA,2,0,0.01
+regression,k-NN,KernelPCA,3,0,0.01
+regression,k-NN,Isomap,3,0,0.01
+regression,k-NN,MDS,5,0,0.01
+regression,k-NN,BOTCAST,1,4,0.01
+regression,MLP,No Reduction,2,0,0.01
+regression,MLP,PCA,2,0,0.01
+regression,MLP,KernelPCA,2,0,0.01
+regression,MLP,Isomap,1,1,0.01
+regression,MLP,MDS,1,0,0.01
+regression,MLP,BOTCAST,1,2,0.01
+regression,LSTM,No Reduction,1,4,0.01
+regression,LSTM,PCA,1,3,0.01
+regression,LSTM,KernelPCA,1,4,0.01
+regression,LSTM,Isomap,1,1,0.01
+regression,LSTM,MDS,2,2,0.01
+regression,LSTM,BOTCAST,1,3,0.01
+regression,RNN GRU,No Reduction,2,1,0.01
+regression,RNN GRU,PCA,2,0,0.01
+regression,RNN GRU,KernelPCA,3,1,0.01
+regression,RNN GRU,Isomap,4,1,0.01
+regression,RNN GRU,MDS,3,0,0.01
+regression,RNN GRU,BOTCAST,3,2,0.01

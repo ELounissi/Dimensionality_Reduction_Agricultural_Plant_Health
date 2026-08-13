@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+logs/
+results/shards/
+results/reproduced/
+results/notebook_reproduced/
+.venv_*/

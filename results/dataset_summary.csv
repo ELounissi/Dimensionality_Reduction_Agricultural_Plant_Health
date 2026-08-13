@@ -1,0 +1,5 @@
+crop,observations,features,fields,positives,positive_rate
+Onion,922,135,5,461,0.5
+Lettuce,540,132,4,270,0.5
+Carrot,399,134,2,186,0.4662
+TOTAL,1861,,11,917,

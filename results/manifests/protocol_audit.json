@@ -1,0 +1,1145 @@
+{
+  "state": "PASS",
+  "checks": [
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 0,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 1,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 2,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 3,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 4,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 5,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 6,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 7,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 8,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "classification",
+      "seed": 9,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 0,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 1,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 2,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 3,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 4,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 5,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 6,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 7,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 8,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "classification",
+      "seed": 9,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 0,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 1,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 2,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 3,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 4,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 5,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 6,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 7,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 8,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "classification",
+      "seed": 9,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 0,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 1,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 2,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 3,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 4,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 5,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 6,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 7,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 8,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Onion",
+      "task": "regression",
+      "seed": 9,
+      "classical_train": 737,
+      "classical_test": 185,
+      "neural_train": 644,
+      "neural_validation": 93,
+      "neural_test": 185,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 0,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 1,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 2,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 3,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 4,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 5,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 6,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 7,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 8,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Lettuce",
+      "task": "regression",
+      "seed": 9,
+      "classical_train": 432,
+      "classical_test": 108,
+      "neural_train": 378,
+      "neural_validation": 54,
+      "neural_test": 108,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 0,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 1,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 2,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 3,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 4,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 5,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 6,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 7,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 8,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    },
+    {
+      "crop": "Carrot",
+      "task": "regression",
+      "seed": 9,
+      "classical_train": 319,
+      "classical_test": 80,
+      "neural_train": 279,
+      "neural_validation": 40,
+      "neural_test": 80,
+      "row_overlap": 0,
+      "leaked_columns": [],
+      "context_columns": [
+        "FarmID",
+        "Plant_ID",
+        "Date"
+      ],
+      "deterministic": true,
+      "training_only_preprocessing": true
+    }
+  ]
+}
