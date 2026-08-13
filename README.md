@@ -1,6 +1,6 @@
 # Dimensionality Reduction for Agricultural Plant Health Prediction
 
-This repository contains the data, leakage-controlled analysis code, and complete results for the study *Impact of dimensionality reduction on machine learning and deep learning predictions of agricultural plant health*.
+This repository contains the data, code, and complete results for the study *Impact of dimensionality reduction on machine learning and deep learning predictions of agricultural plant health*.
 
 The benchmark compares six feature representations with six machine learning and deep learning models for fungal disease classification and severity regression in carrot, lettuce, and onion crops.
 
