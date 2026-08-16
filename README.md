@@ -10,7 +10,7 @@ The comparison spans four model families, each consuming the data
 representation it is designed for:
 
 | Family | Models |
-|---|---|---|
+|---|---|
 | Tree and neighbor methods | Decision tree, Random forest, k-NN |
 | Feed-forward network | MLP |
 | Pretrained tabular foundation model | TabPFN (v3) |
