@@ -1,0 +1,217 @@
+task,crop,dr,model,published,new,delta
+classification,Carrot,No Reduction,Decision tree,0.6984,0.7116866213959264,0.0133
+classification,Lettuce,No Reduction,Decision tree,0.8817,0.8710336542675703,-0.0107
+classification,Onion,No Reduction,Decision tree,0.7918,0.7811988371752399,-0.0106
+classification,Carrot,No Reduction,Random forest,0.7425,0.7336955557151635,-0.0088
+classification,Lettuce,No Reduction,Random forest,0.8678,0.868558522698869,0.0008
+classification,Onion,No Reduction,Random forest,0.8117,0.7906526045489085,-0.021
+classification,Carrot,No Reduction,k-NN,0.7112,0.7232764770576986,0.0121
+classification,Lettuce,No Reduction,k-NN,0.8597,0.8670906762398227,0.0074
+classification,Onion,No Reduction,k-NN,0.7974,0.8065104801406386,0.0091
+classification,Carrot,No Reduction,MLP,0.6101,0.7368018805809713,0.1267
+classification,Lettuce,No Reduction,MLP,0.5017,0.8777851990576858,0.3761
+classification,Onion,No Reduction,MLP,0.5979,0.7928197151323557,0.1949
+classification,Carrot,No Reduction,LSTM,0.6863,0.735923306076378,0.0496
+classification,Lettuce,No Reduction,LSTM,0.8919,0.8720707279803351,-0.0198
+classification,Onion,No Reduction,LSTM,0.7758,0.7982645834186284,0.0225
+classification,Carrot,No Reduction,RNN GRU,0.7273,0.7486862656073259,0.0214
+classification,Lettuce,No Reduction,RNN GRU,0.8967,0.8731839446186396,-0.0235
+classification,Onion,No Reduction,RNN GRU,0.8133,0.797732551071441,-0.0156
+regression,Carrot,No Reduction,Decision tree,0.1718,0.22936672047671464,0.0576
+regression,Lettuce,No Reduction,Decision tree,0.3433,0.69044669121546,0.3471
+regression,Onion,No Reduction,Decision tree,0.1575,0.44400986519260865,0.2865
+regression,Carrot,No Reduction,Random forest,0.0165,0.2357582542190583,0.2193
+regression,Lettuce,No Reduction,Random forest,0.7237,0.7125212687941953,-0.0112
+regression,Onion,No Reduction,Random forest,0.4837,0.5016179951875273,0.0179
+regression,Carrot,No Reduction,k-NN,0.0892,0.20194252133369445,0.1127
+regression,Lettuce,No Reduction,k-NN,0.7263,0.7034028172492981,-0.0229
+regression,Onion,No Reduction,k-NN,0.5002,0.4832673013210297,-0.0169
+regression,Carrot,No Reduction,MLP,0.2148,0.2157042860984802,0.0009
+regression,Lettuce,No Reduction,MLP,0.6326,0.6889935374259949,0.0564
+regression,Onion,No Reduction,MLP,0.4123,0.46815199255943296,0.0559
+regression,Carrot,No Reduction,LSTM,0.1826,0.21085724234580988,0.0283
+regression,Lettuce,No Reduction,LSTM,0.6273,0.6834725081920624,0.0562
+regression,Onion,No Reduction,LSTM,0.3673,0.4985453963279724,0.1312
+regression,Carrot,No Reduction,RNN GRU,0.2059,0.23261509537696834,0.0267
+regression,Lettuce,No Reduction,RNN GRU,0.7289,0.6717144966125488,-0.0572
+regression,Onion,No Reduction,RNN GRU,0.4629,0.49292248487472534,0.03
+classification,Carrot,PCA,Decision tree,0.6997,0.715619659769546,0.0159
+classification,Lettuce,PCA,Decision tree,0.8587,0.8694326207836209,0.0107
+classification,Onion,PCA,Decision tree,0.7899,0.7752091628777933,-0.0147
+classification,Carrot,PCA,Random forest,0.6908,0.7043771153475062,0.0136
+classification,Lettuce,PCA,Random forest,0.8763,0.8745301755065654,-0.0018
+classification,Onion,PCA,Random forest,0.8184,0.7976960282111334,-0.0207
+classification,Carrot,PCA,k-NN,0.6775,0.7177697326690631,0.0403
+classification,Lettuce,PCA,k-NN,0.8531,0.8668171311207379,0.0137
+classification,Onion,PCA,k-NN,0.8252,0.8010727503654417,-0.0241
+classification,Carrot,PCA,MLP,0.7547,0.7504664515596768,-0.0042
+classification,Lettuce,PCA,MLP,0.9027,0.8801071930497294,-0.0226
+classification,Onion,PCA,MLP,0.8072,0.7996567012392799,-0.0075
+classification,Carrot,PCA,LSTM,0.6063,0.7376317248505468,0.1313
+classification,Lettuce,PCA,LSTM,0.8631,0.8770433190666932,0.0139
+classification,Onion,PCA,LSTM,0.8039,0.8050384450310138,0.0011
+classification,Carrot,PCA,RNN GRU,0.6835,0.7457150914700194,0.0622
+classification,Lettuce,PCA,RNN GRU,0.8813,0.874540905851027,-0.0068
+classification,Onion,PCA,RNN GRU,0.8026,0.8008245607553025,-0.0018
+classification,Carrot,MDS,Decision tree,0.656,0.7128791772933355,0.0569
+classification,Lettuce,MDS,Decision tree,0.8726,0.8551114021602766,-0.0175
+classification,Onion,MDS,Decision tree,0.7678,0.8007038527441228,0.0329
+classification,Carrot,MDS,Random forest,0.7269,0.732336920231089,0.0054
+classification,Lettuce,MDS,Random forest,0.8961,0.8688824495164356,-0.0272
+classification,Onion,MDS,Random forest,0.8089,0.8059612866134337,-0.0029
+classification,Carrot,MDS,k-NN,0.6755,0.7193394810739093,0.0438
+classification,Lettuce,MDS,k-NN,0.8722,0.864245302067302,-0.008
+classification,Onion,MDS,k-NN,0.8019,0.8023600212805455,0.0005
+classification,Carrot,MDS,MLP,0.6935,0.7459669341877146,0.0525
+classification,Lettuce,MDS,MLP,0.859,0.8801071930497294,0.0211
+classification,Onion,MDS,MLP,0.8212,0.7990677887918821,-0.0221
+classification,Carrot,MDS,LSTM,0.6276,0.7294079425604237,0.1018
+classification,Lettuce,MDS,LSTM,0.8747,0.8651711806104478,-0.0095
+classification,Onion,MDS,LSTM,0.8029,0.7930689112705969,-0.0098
+classification,Carrot,MDS,RNN GRU,0.6928,0.7318117654427637,0.039
+classification,Lettuce,MDS,RNN GRU,0.8786,0.8739099620165115,-0.0047
+classification,Onion,MDS,RNN GRU,0.8045,0.7957091412789301,-0.0088
+classification,Carrot,Isomap,Decision tree,0.6713,0.6460881303432975,-0.0252
+classification,Lettuce,Isomap,Decision tree,0.8611,0.851386880949845,-0.0097
+classification,Onion,Isomap,Decision tree,0.7622,0.7638273223376324,0.0016
+classification,Carrot,Isomap,Random forest,0.6983,0.6858677028721777,-0.0124
+classification,Lettuce,Isomap,Random forest,0.8594,0.8777968469911851,0.0184
+classification,Onion,Isomap,Random forest,0.785,0.8020894531454446,0.0171
+classification,Carrot,Isomap,k-NN,0.7182,0.7213892063516998,0.0032
+classification,Lettuce,Isomap,k-NN,0.8482,0.8642910367974743,0.0161
+classification,Onion,Isomap,k-NN,0.7966,0.8037523895349828,0.0072
+classification,Carrot,Isomap,MLP,0.6874,0.707117319130798,0.0197
+classification,Lettuce,Isomap,MLP,0.8573,0.8693919524331941,0.0121
+classification,Onion,Isomap,MLP,0.807,0.7950397994691605,-0.012
+classification,Carrot,Isomap,LSTM,0.6803,0.7286370831829698,0.0483
+classification,Lettuce,Isomap,LSTM,0.8774,0.8578566752097945,-0.0195
+classification,Onion,Isomap,LSTM,0.7779,0.7980054351742429,0.0201
+classification,Carrot,Isomap,RNN GRU,0.7033,0.7135811166698387,0.0103
+classification,Lettuce,Isomap,RNN GRU,0.8686,0.8655953119470732,-0.003
+classification,Onion,Isomap,RNN GRU,0.8004,0.8076106121942159,0.0072
+classification,Carrot,KernelPCA,Decision tree,0.7047,0.6861074269484672,-0.0186
+classification,Lettuce,KernelPCA,Decision tree,0.8481,0.8556577086124886,0.0076
+classification,Onion,KernelPCA,Decision tree,0.7861,0.7795635050702515,-0.0065
+classification,Carrot,KernelPCA,Random forest,0.6828,0.6912978042587297,0.0085
+classification,Lettuce,KernelPCA,Random forest,0.8754,0.874085366048073,-0.0013
+classification,Onion,KernelPCA,Random forest,0.8099,0.7966728655797894,-0.0132
+classification,Carrot,KernelPCA,k-NN,0.7276,0.7142276443730899,-0.0134
+classification,Lettuce,KernelPCA,k-NN,0.8754,0.8625248627306583,-0.0129
+classification,Onion,KernelPCA,k-NN,0.794,0.7993535473471713,0.0054
+classification,Carrot,KernelPCA,MLP,0.6817,0.7271244344843183,0.0454
+classification,Lettuce,KernelPCA,MLP,0.8698,0.8742013922580412,0.0044
+classification,Onion,KernelPCA,MLP,0.7955,0.7917891010868793,-0.0037
+classification,Carrot,KernelPCA,LSTM,0.6455,0.740543960052148,0.095
+classification,Lettuce,KernelPCA,LSTM,0.8789,0.8655279193064851,-0.0134
+classification,Onion,KernelPCA,LSTM,0.7937,0.8008558990575209,0.0072
+classification,Carrot,KernelPCA,RNN GRU,0.7042,0.7375808513705493,0.0334
+classification,Lettuce,KernelPCA,RNN GRU,0.8635,0.866418991628473,0.0029
+classification,Onion,KernelPCA,RNN GRU,0.8054,0.8020729240525508,-0.0033
+classification,Carrot,BOTCAST,Decision tree,0.7565,0.7336284650765593,-0.0229
+classification,Lettuce,BOTCAST,Decision tree,0.8666,0.8801071930497294,0.0135
+classification,Onion,BOTCAST,Decision tree,0.744,0.7606578248922117,0.0167
+classification,Carrot,BOTCAST,Random forest,0.6795,0.7393169109975634,0.0598
+classification,Lettuce,BOTCAST,Random forest,0.8633,0.8801071930497294,0.0168
+classification,Onion,BOTCAST,Random forest,0.8042,0.791199238423645,-0.013
+classification,Carrot,BOTCAST,k-NN,0.6859,0.7156451289742194,0.0297
+classification,Lettuce,BOTCAST,k-NN,0.8791,0.8629307134881883,-0.0162
+classification,Onion,BOTCAST,k-NN,0.7989,0.7777701031116917,-0.0211
+classification,Carrot,BOTCAST,MLP,0.7099,0.7283326922256277,0.0184
+classification,Lettuce,BOTCAST,MLP,0.883,0.8801071930497294,-0.0029
+classification,Onion,BOTCAST,MLP,0.7796,0.752474946214182,-0.0271
+classification,Carrot,BOTCAST,LSTM,0.7373,0.7274462967557727,-0.0099
+classification,Lettuce,BOTCAST,LSTM,0.8888,0.8759180963376968,-0.0129
+classification,Onion,BOTCAST,LSTM,0.727,0.7930286272077418,0.066
+classification,Carrot,BOTCAST,RNN GRU,0.7426,0.7352240461100773,-0.0074
+classification,Lettuce,BOTCAST,RNN GRU,0.8831,0.8801071930497294,-0.003
+classification,Onion,BOTCAST,RNN GRU,0.7696,0.7997824883674026,0.0302
+regression,Carrot,PCA,Decision tree,0.1173,0.2014522388727776,0.0842
+regression,Lettuce,PCA,Decision tree,0.3324,0.6887579208281472,0.3564
+regression,Onion,PCA,Decision tree,0.0536,0.43840278709385255,0.3848
+regression,Carrot,PCA,Random forest,0.2515,0.21539220116899127,-0.0361
+regression,Lettuce,PCA,Random forest,0.7375,0.7142688130967677,-0.0232
+regression,Onion,PCA,Random forest,0.4558,0.4961295672864366,0.0403
+regression,Carrot,PCA,k-NN,0.2212,0.19811589717864989,-0.0231
+regression,Lettuce,PCA,k-NN,0.7328,0.6941501200199127,-0.0386
+regression,Onion,PCA,k-NN,0.5129,0.4787932574748993,-0.0341
+regression,Carrot,PCA,MLP,0.1798,0.22199960350990292,0.0422
+regression,Lettuce,PCA,MLP,0.5846,0.676610666513443,0.092
+regression,Onion,PCA,MLP,0.394,0.47340713143348695,0.0794
+regression,Carrot,PCA,LSTM,0.1968,0.22822321057319636,0.0314
+regression,Lettuce,PCA,LSTM,0.6123,0.6855119884014129,0.0732
+regression,Onion,PCA,LSTM,0.3566,0.5003107011318206,0.1437
+regression,Carrot,PCA,RNN GRU,0.2034,0.22816939949989315,0.0248
+regression,Lettuce,PCA,RNN GRU,0.7276,0.6880641877651215,-0.0395
+regression,Onion,PCA,RNN GRU,0.4583,0.4908279895782471,0.0325
+regression,Carrot,MDS,Decision tree,0.1022,0.21396041915743588,0.1118
+regression,Lettuce,MDS,Decision tree,0.2941,0.6558099852005677,0.3617
+regression,Onion,MDS,Decision tree,0.1066,0.3995568606148424,0.293
+regression,Carrot,MDS,Random forest,0.15,0.23892823398513338,0.0889
+regression,Lettuce,MDS,Random forest,0.7282,0.7018914339818184,-0.0263
+regression,Onion,MDS,Random forest,0.4873,0.49794515890966606,0.0106
+regression,Carrot,MDS,k-NN,0.1362,0.20834444165229793,0.0721
+regression,Lettuce,MDS,k-NN,0.7676,0.7041957676410675,-0.0634
+regression,Onion,MDS,k-NN,0.5005,0.4745023787021637,-0.026
+regression,Carrot,MDS,MLP,0.1966,0.23007991313934326,0.0335
+regression,Lettuce,MDS,MLP,0.6136,0.6870694816112518,0.0735
+regression,Onion,MDS,MLP,0.4079,0.46203007102012633,0.0541
+regression,Carrot,MDS,LSTM,0.1828,0.23586906194686885,0.0531
+regression,Lettuce,MDS,LSTM,0.6059,0.681663703918457,0.0758
+regression,Onion,MDS,LSTM,0.3776,0.4912735164165497,0.1137
+regression,Carrot,MDS,RNN GRU,0.2005,0.22273618578910823,0.0222
+regression,Lettuce,MDS,RNN GRU,0.7246,0.690064799785614,-0.0345
+regression,Onion,MDS,RNN GRU,0.4709,0.49843048453330996,0.0275
+regression,Carrot,Isomap,Decision tree,0.0613,0.10763551037360938,0.0463
+regression,Lettuce,Isomap,Decision tree,0.1121,0.6221155180408313,0.51
+regression,Onion,Isomap,Decision tree,0.0617,0.334754312933963,0.2731
+regression,Carrot,Isomap,Random forest,0.0963,0.207292673219971,0.111
+regression,Lettuce,Isomap,Random forest,0.721,0.7176468254447393,-0.0034
+regression,Onion,Isomap,Random forest,0.3963,0.49174005670675064,0.0954
+regression,Carrot,Isomap,k-NN,0.1374,0.19338371753692624,0.056
+regression,Lettuce,Isomap,k-NN,0.724,0.7018020272254943,-0.0222
+regression,Onion,Isomap,k-NN,0.4846,0.46870813369750974,-0.0159
+regression,Carrot,Isomap,MLP,0.1753,0.11151478886604305,-0.0638
+regression,Lettuce,Isomap,MLP,0.5786,0.6940203428268432,0.1154
+regression,Onion,Isomap,MLP,0.4036,0.4568622887134552,0.0533
+regression,Carrot,Isomap,LSTM,0.2144,0.13226389884948728,-0.0821
+regression,Lettuce,Isomap,LSTM,0.654,0.6812724709510803,0.0273
+regression,Onion,Isomap,LSTM,0.4131,0.48211209774017333,0.069
+regression,Carrot,Isomap,RNN GRU,0.1813,0.17873703241348263,-0.0026
+regression,Lettuce,Isomap,RNN GRU,0.7101,0.6790883958339691,-0.031
+regression,Onion,Isomap,RNN GRU,0.4502,0.4893816351890564,0.0392
+regression,Carrot,KernelPCA,Decision tree,0.1315,0.17056345271331896,0.0391
+regression,Lettuce,KernelPCA,Decision tree,0.3876,0.6611712287391585,0.2736
+regression,Onion,KernelPCA,Decision tree,0.036,0.40630557203411766,0.3703
+regression,Carrot,KernelPCA,Random forest,0.0404,0.21838573156201363,0.178
+regression,Lettuce,KernelPCA,Random forest,0.7265,0.7229177154778441,-0.0036
+regression,Onion,KernelPCA,Random forest,0.4486,0.511946709273042,0.0633
+regression,Carrot,KernelPCA,k-NN,0.1947,0.19190473556518553,-0.0028
+regression,Lettuce,KernelPCA,k-NN,0.7256,0.7035846590995789,-0.022
+regression,Onion,KernelPCA,k-NN,0.4693,0.491016149520874,0.0217
+regression,Carrot,KernelPCA,MLP,0.1669,0.18086593151092525,0.014
+regression,Lettuce,KernelPCA,MLP,0.655,0.6874113857746125,0.0324
+regression,Onion,KernelPCA,MLP,0.3887,0.45168147683143617,0.063
+regression,Carrot,KernelPCA,LSTM,0.19,0.19037699103355402,0.0004
+regression,Lettuce,KernelPCA,LSTM,0.6343,0.6700531482696533,0.0358
+regression,Onion,KernelPCA,LSTM,0.3791,0.4949684262275696,0.1159
+regression,Carrot,KernelPCA,RNN GRU,0.2013,0.1955613791942596,-0.0057
+regression,Lettuce,KernelPCA,RNN GRU,0.7218,0.6822443306446075,-0.0396
+regression,Onion,KernelPCA,RNN GRU,0.4615,0.49094549417495725,0.0294
+regression,Carrot,BOTCAST,Decision tree,0.1413,0.24465577192854315,0.1034
+regression,Lettuce,BOTCAST,Decision tree,0.1827,0.4374331325540831,0.2547
+regression,Onion,BOTCAST,Decision tree,0.0541,0.3342782731592461,0.2802
+regression,Carrot,BOTCAST,Random forest,0.2284,0.23732419179387726,0.0089
+regression,Lettuce,BOTCAST,Random forest,0.5785,0.5484058859295549,-0.0301
+regression,Onion,BOTCAST,Random forest,0.4649,0.47971247026502273,0.0148
+regression,Carrot,BOTCAST,k-NN,0.1002,0.1550143420696258,0.0548
+regression,Lettuce,BOTCAST,k-NN,0.4457,0.517071008682251,0.0714
+regression,Onion,BOTCAST,k-NN,0.4317,0.439847332239151,0.0081
+regression,Carrot,BOTCAST,MLP,0.2741,0.23180131316185,-0.0423
+regression,Lettuce,BOTCAST,MLP,0.4966,0.4896524965763092,-0.0069
+regression,Onion,BOTCAST,MLP,0.4465,0.42884793877601624,-0.0177
+regression,Carrot,BOTCAST,LSTM,0.1715,0.19129573106765746,0.0198
+regression,Lettuce,BOTCAST,LSTM,0.3764,0.6657885849475861,0.2894
+regression,Onion,BOTCAST,LSTM,0.2354,0.45974987745285034,0.2243
+regression,Carrot,BOTCAST,RNN GRU,0.2123,0.2340335071086883,0.0217
+regression,Lettuce,BOTCAST,RNN GRU,0.4817,0.6608315944671631,0.1791
+regression,Onion,BOTCAST,RNN GRU,0.4212,0.4632348001003265,0.042

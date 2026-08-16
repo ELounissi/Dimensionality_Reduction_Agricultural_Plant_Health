@@ -5,4 +5,4 @@ scipy==1.13.1
 torch==2.12.0
 joblib==1.5.3
 matplotlib==3.9.0
-tensorflow==2.19.1
+tabpfn==8.0.3

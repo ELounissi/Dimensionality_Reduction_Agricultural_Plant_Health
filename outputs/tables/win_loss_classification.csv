@@ -1,0 +1,9 @@
+model,No Reduction,No Reduction_best,PCA,PCA_best,KernelPCA,KernelPCA_best,Isomap,Isomap_best,MDS,MDS_best,BOTCAST,BOTCAST_best
+Decision tree,2/-3,False,0/-2,False,0/-3,False,0/-6,False,2/-4,False,3/-2,False
+Random forest,1/-4,False,4/-4,False,4/-3,False,4/-2,False,3/-1,False,4/-1,False
+k-NN,4/-3,False,4/-3,False,4/-3,False,5/-2,False,4/-4,False,2/-5,False
+MLP,3/-1,False,6/0,True,3/-1,False,2/-2,False,6/-1,True,2/-2,False
+LSTM,5/-3,False,5/0,False,4/-3,False,3/-4,False,0/-4,False,3/-2,False
+RNN GRU,6/-3,False,6/-3,False,3/-2,False,2/-2,False,2/-3,False,4/-1,True
+Mamba SSM,4/-2,False,4/-1,False,4/-3,False,2/-3,False,2/-3,False,4/-1,False
+TabPFN,5/-1,True,4/-2,False,5/-1,True,5/-2,True,3/-2,False,4/-2,False

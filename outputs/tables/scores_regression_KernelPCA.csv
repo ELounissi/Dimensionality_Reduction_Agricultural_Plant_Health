@@ -1,0 +1,9 @@
+model,Carrot_mean,Carrot_ci95,Carrot_best,Lettuce_mean,Lettuce_ci95,Lettuce_best,Onion_mean,Onion_ci95,Onion_best
+Decision tree,0.1706,0.0744,False,0.6612,0.0458,False,0.4063,0.0389,False
+Random forest,0.2184,0.0492,False,0.7229,0.0339,True,0.5119,0.0248,True
+k-NN,0.1919,0.0695,False,0.7036,0.0361,False,0.491,0.0391,False
+MLP,0.1809,0.0596,False,0.6874,0.0359,False,0.4517,0.0316,False
+LSTM,0.1904,0.0536,False,0.6701,0.0367,False,0.495,0.0384,False
+RNN GRU,0.1956,0.0588,False,0.6822,0.0345,False,0.4909,0.0364,False
+Mamba SSM,0.1618,0.0457,False,0.6715,0.0334,False,0.4904,0.0409,False
+TabPFN,0.2477,0.0468,True,0.6951,0.0323,False,0.4671,0.0392,False

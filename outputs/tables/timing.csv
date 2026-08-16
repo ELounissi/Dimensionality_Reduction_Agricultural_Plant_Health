@@ -1,0 +1,7 @@
+method,classification_seconds,classification_speedup,regression_seconds,regression_speedup
+No Reduction,75.795,1.0,98.634,1.0
+PCA,38.235,1.982,38.325,2.574
+KernelPCA,40.811,1.857,40.617,2.428
+Isomap,43.221,1.754,49.603,1.988
+MDS,48.318,1.569,54.827,1.799
+BOTCAST,30.485,2.486,30.169,3.269

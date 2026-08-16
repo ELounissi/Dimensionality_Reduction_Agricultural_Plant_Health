@@ -1,159 +1,148 @@
-# Dimensionality Reduction for Agricultural Plant Health Prediction
+# Machine Learning and Dimensionality Reduction for Plant-Health Prediction
 
-This repository contains the data, code, and complete results for the study *Impact of dimensionality reduction on machine learning and deep learning predictions of agricultural plant health*.
+A complete, reproducible benchmark of **eight learning approaches** across
+**six feature representations**, **three vegetable crops**, and **two
+prediction tasks**, built on weekly in-field plant observations, daily
+weather records, and plant-to-plant distances collected over a full growing
+season.
 
-The benchmark compares six feature representations with six machine learning and deep learning models for fungal disease classification and severity regression in carrot, lettuce, and onion crops.
+The comparison spans four model families, each consuming the data
+representation it is designed for:
 
-## Repository contents
+| Family | Models | Input |
+|---|---|---|
+| Tree and neighbor methods | Decision tree, Random forest, k-NN | sampling-day feature vector |
+| Feed-forward network | MLP | sampling-day feature vector |
+| Pretrained tabular foundation model | TabPFN (v3) | sampling-day feature vector |
+| Sequence models | LSTM, RNN GRU, Mamba SSM | the plant's recent visit history |
+
+Representations: **No Reduction**, **PCA**, **KernelPCA**, **Isomap**,
+**MDS**, and **BOTCAST** (an expert-defined agronomic feature set). Tasks:
+disease-occurrence classification (F1) and disease-severity regression
+(R2), each scored over ten deterministic seeds.
+
+## Highlights
+
+- **Rigorous, leakage-free protocol.** Shared deterministic 80/20 splits
+  per seed; imputation, standardization, and every reduction fitted on
+  training rows only; the test partition is scored exactly once per run;
+  one model per run.
+- **Fair treatment for every model.** Classical models receive a
+  cross-validated hyperparameter search, neural models a cross-validated
+  architecture search with early stopping, and TabPFN its pretrained
+  prior. Sequence models additionally consume the temporal structure the
+  dataset was designed to expose - strictly backward-looking.
+- **Everything ships with the code.** The full run-level results
+  (2,880 runs with scores, timings, and selected configurations), the
+  generated tables and figures, and the originally published baseline for
+  direct comparison.
+
+## Repository layout
 
 ```text
-run_analysis.py                 Command-line entry point
-reproduce_paper_results.ipynb  Step-by-step notebook
-dr_agri/                       Data, preprocessing, DR, and model code
-analysis/                      Internal workflow, statistics, and figure code
-data/                          Released crop and weather inputs
-results/                       Complete paper results, tables, and figures
-requirements.txt               Pinned Python dependencies
+run_all.py               benchmark driver (fully parameterized, see below)
+explore_benchmark.ipynb  guided, step-by-step notebook tour
+requirements.txt         pinned dependencies
+code/                    the benchmark implementation
+  pipeline.py              shared feature and sequence construction
+  nets.py                  MLP, LSTM, GRU, and Mamba architectures + training
+  outputs.py               tables (CSV) and figures (PNG) from results
+  report.py                quick rankings and win/loss summary (markdown)
+  compare_published.py     comparison against the published baseline
+  dr_agri/                 data loading, reductions, classical model grids
+data/<Crop>/             observations, daily weather, BOTCAST variables,
+                         and plant-pair distances per crop
+data/Data_description_Stephane.pdf  the dataset datasheet: collection
+                         process, variables, and label definitions
+results/                 the shipped benchmark run (runs.csv)
+outputs/                 generated tables (CSV) and figures (PNG)
 ```
-
-The top level has only two analysis entry points. Use the notebook for an interactive walkthrough or the Python script for an automated run.
 
 ## Installation
 
-Python 3.11 is recommended.
-
 ```bash
-git clone https://github.com/ELounissi/Dimensionality_Reduction_Agricultural_Plant_Health.git
-cd Dimensionality_Reduction_Agricultural_Plant_Health
-python -m venv .venv
-```
-
-Activate the environment.
-
-Linux or macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Install the pinned dependencies:
-
-```bash
-python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-Install Jupyter only if the notebook interface is needed:
+Python 3.11 is recommended. TabPFN downloads its checkpoints on first use
+and asks for a one-time license acceptance (https://ux.priorlabs.ai);
+cached checkpoints then run fully offline. Every other model runs out of
+the box.
+
+## Quick start
 
 ```bash
-python -m pip install jupyter
+python run_all.py                      # the full benchmark, all defaults
+python code/outputs.py                      # all tables (CSV) and figures (PNG)
+python code/report.py                       # rankings + win/loss at a glance
+python code/compare_published.py            # deltas against the published scores
 ```
 
-## Quick verification using the included results
+## run_all.py parameters
 
-The repository ships with all 2,160 run-level results. The following command audits the protocol and regenerates the statistical tests, tables, and six figures from `results/runs.csv`:
+Every parameter is optional; with no parameters the complete benchmark
+runs. Any combination can be included or excluded.
+
+| Parameter | Values | Default | Description |
+|---|---|---|---|
+| `--tasks` | `classification`, `regression` | both | prediction tasks to run |
+| `--crops` | `Carrot`, `Lettuce`, `Onion` | all three | crops to include |
+| `--dr` | `"No Reduction"`, `PCA`, `KernelPCA`, `Isomap`, `MDS`, `BOTCAST` | all six | representations to include |
+| `--models` | `"Decision tree"`, `"Random forest"`, `k-NN`, `MLP`, `LSTM`, `"RNN GRU"`, `"Mamba SSM"`, `TabPFN` | all eight | models to include |
+| `--exclude-models` | same values | none | remove models from the selected set |
+| `--exclude-dr` | same values | none | remove representations from the selected set |
+| `--seeds` | any integers | `0 1 2 3 4 5 6 7 8 9` | explicit seed values |
+| `--n-jobs` | integer | CPU count | parallel worker processes |
+| `--out` | path | `results` | output directory for `runs.csv` |
+
+Multi-word values are quoted. Examples:
 
 ```bash
-python run_analysis.py --from-existing
+# Sequence models only, on onion, with PCA and BOTCAST, three seeds
+python run_all.py --models LSTM "RNN GRU" "Mamba SSM" \
+    --crops Onion --dr PCA BOTCAST --seeds 0 1 2
+
+# Everything except TabPFN and MDS
+python run_all.py --exclude-models TabPFN --exclude-dr MDS
+
+# Regression only, single seed, custom output directory
+python run_all.py --tasks regression --seeds 7 --out results_seed7
+
+# Classical models on the raw representation, sixteen workers
+python run_all.py --models "Decision tree" "Random forest" k-NN \
+    --dr "No Reduction" --n-jobs 16
 ```
 
-This is the fastest way to verify the paper outputs without fitting the models again.
-
-## Full reproduction from the data
-
-Run the complete analysis with ten deterministic seeds:
-
-```bash
-python run_analysis.py --jobs 8
-```
-
-The default output directory is `results/reproduced`. Change the worker count and output directory as needed:
-
-```bash
-python run_analysis.py --jobs 16 --results-dir results/my_run
-```
-
-The full run performs the following stages:
-
-1. Audit the split and preprocessing protocol.
-2. Fit every crop, task, DR, model, and seed combination.
-3. Save every held-out test score and selected model parameter.
-4. Calculate means and 95 percent confidence intervals across seeds.
-5. Calculate the Wilcoxon tests and pairing win-loss tables.
-6. Generate Figures 1 to 5 and the runtime comparison figure.
-7. Verify seed coverage, unique result keys, scores, and output files.
-
-The analysis is CPU compatible. `--jobs` controls independent worker processes, so the same entry point can be used on a workstation or inside a scheduler selected by the user. Runtime measurements depend on the hardware and worker count. Predictive scores use deterministic seeds and the pinned environment.
-
-## Notebook
-
-Open `reproduce_paper_results.ipynb` with Jupyter Lab or Jupyter Notebook:
-
-```bash
-jupyter lab reproduce_paper_results.ipynb
-```
-
-The notebook:
-
-- loads the analysis modules directly
-- prints the dataset summary
-- runs the leakage and split audit
-- regenerates outputs from the included result-level CSV
-- prints the main tables and statistical results
-- displays every generated figure
-- contains an optional final cell for a complete model rerun
-
-## Evaluation protocol
-
-One plant-day record is treated as one sample. The released plant-level random split is retained. The analysis does not claim testing on unseen farms or future dates.
-
-- Classical models use a deterministic 80/20 train-test split.
-- Classical hyperparameters are selected by five-fold cross-validation using the training partition only.
-- MLP, LSTM, and GRU use deterministic 70/10/20 train-validation-test splits.
-- Neural validation controls early stopping. The test partition is evaluated once.
-- Median imputation, standardization, and fitted DR transformations use training data only.
-- The same partitions are reused across methods within each seed.
-- Reported values are means and 95 percent confidence intervals over seeds.
-- PCA retains 95 percent of training-set variance.
-- KernelPCA, Isomap, and MDS use 22 components.
-- BOTCAST uses its fixed expert-defined feature set.
-
-The protocol audit checks partition disjointness, deterministic splits, target exclusion, training-only transformation fitting, class support, and the requested split proportions.
-
-## Data used by the analysis
-
-| Crop | Raw plant rows | Modeling rows | Predictors |
-|---|---:|---:|---:|
-| Onion | 922 | 922 | 135 |
-| Lettuce | 589 | 540 | 132 |
-| Carrot | 770 | 399 | 134 |
-| **Total** | **2,281** | **1,861** | |
-
-The released carrot analysis excludes `FarmID == 0`, leaving 499 records. Matching plant and weather records by farm and date leaves 399 carrot records and 540 lettuce records. Onion retains all 922 records.
+`code/outputs.py`, `code/report.py`, and `code/compare_published.py` accept `--results`
+to point at any output directory produced by `run_all.py`.
 
 ## Generated outputs
 
-| Path | Description |
+| File | Content |
 |---|---|
-| `results/runs.csv` | All 2,160 seed-level held-out test results |
-| `results/aggregated.csv` | Means, confidence intervals, timings, and run counts |
-| `results/tables.md` | Main classification and regression result tables |
-| `results/statistical_tests.csv` | Raw and Holm-adjusted Wilcoxon results |
-| `results/statistical_tests.md` | Readable statistical tables |
-| `results/pairing_win_loss.csv` | DR and model pairing counts |
-| `results/timing_comparison.csv` | Runtime and speedup comparison |
-| `results/figures/Figure_1.png` | Training and validation curves |
-| `results/figures/Figure_2.png` | Classification comparison by DR method |
-| `results/figures/Figure_3.png` | Regression comparison by DR method |
-| `results/figures/Figure_4.png` | Classification comparison by model |
-| `results/figures/Figure_5.png` | Regression comparison by model |
-| `results/figures/Timing_Comparison.png` | Runtime with and without DR |
-| `results/manifests/protocol_audit.json` | Machine-readable protocol audit |
+| `outputs/tables/scores_<task>_<reduction>.csv` | mean, 95% CI, and best-in-crop marker per model and crop |
+| `outputs/tables/win_loss_<task>.csv` | combined wins/losses per pairing with the best pairing flagged per column |
+| `outputs/tables/rankings.csv` | overall model ranking per task |
+| `outputs/tables/timing.csv` | mean experimental-unit time and speedup per representation |
+| `outputs/figures/Figure_2..5.png` | boxplot comparisons by representation and by model |
+| `results/vs_published.csv` | cell-level comparison against the published baseline |
 
-The included result set contains ten seeds, zero failed experimental units, zero duplicate result keys, and zero missing scores.
+## Guided notebook
+
+`explore_benchmark.ipynb` walks through the dataset and the benchmark step
+by step: inspecting the three data files of each crop, visualizing a
+reduction, assembling a plant's visit-history sequence, training a model
+on a small slice, and regenerating the headline tables and figures from
+the shipped results. It is designed to be read top to bottom and runs in a
+few minutes.
+
+## Data
+
+Each crop ships with its three released files: per-plant field
+observations (weekly visits with disease scores), daily weather with
+derived agronomic variables, and plant-pair distances measured in the
+field. The BOTCAST variable list defines the expert representation. One
+row of the modeling table is one plant on one sampling day. The full
+datasheet - collection process, weather variable catalogue, and the
+per-crop label definitions - is included as
+`data/Data_description_Stephane.pdf`.

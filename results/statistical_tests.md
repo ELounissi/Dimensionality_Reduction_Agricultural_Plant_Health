@@ -1,6 +1,6 @@
 # Wilcoxon signed-rank tests
 
-Seeds are averaged before testing. Raw p-values are shown below. Holm-adjusted p-values are saved in statistical_tests.csv.
+Seeds are averaged before testing. Raw p-values are shown in the readable tables. Holm-adjusted p-values are saved in statistical_tests.csv.
 
 ## Dimensionality reduction against No Reduction
 
