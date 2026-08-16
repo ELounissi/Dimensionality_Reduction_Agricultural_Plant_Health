@@ -1,7 +1,7 @@
 # Machine Learning and Dimensionality Reduction for Plant-Health Prediction
 
 A complete, reproducible benchmark of **eight learning approaches** across
-**six feature representations**, **three vegetable crops**, and **two
+**six feature representations (No Reduction and 5 Dimensionality Reductions)**, **three vegetable crops**, and **two
 prediction tasks**, built on weekly in-field plant observations, daily
 weather records, and plant-to-plant distances collected over a full growing
 season.
