@@ -1,9 +1,14 @@
 """Neural architectures and training loop.
 
-All networks share one training recipe: Adam (lr 1e-3, weight decay 1e-4),
-batch 32, up to 400 epochs, early stopping on the validation loss with
-patience 20 and best-epoch restore. Regression outputs are clipped to the
-valid [0, 1] severity range at prediction time. One model per run.
+All networks use Adam with a searched learning rate, fixed weight decay
+1e-4, batch size 32, up to 400 epochs, and early stopping on the
+validation loss with patience 20 and best-epoch restore. Regression
+outputs are clipped to the valid [0, 1] severity range at prediction
+time. One model is fitted per run.
+
+The per-seed search covers network width, dropout, learning rate, and,
+for the sequence models, the history length K. Weight decay, batch size,
+and the projection-and-head layout remain fixed globally.
 
 The Mamba SSM is a faithful pure-PyTorch selective state-space block
 (input-dependent discretization and state/output projections, causal
@@ -37,7 +42,8 @@ class _Head(nn.Module):
 
 class RecurrentNet(nn.Module):
     """Projection -> GRU/LSTM -> head, with the final-step context block
-    skipped directly into the head."""
+    skipped directly into the head; the dropout rate is a searched
+    hyperparameter."""
 
     def __init__(self, input_dim: int, task: str, units: int, kind: str,
                  proj: int = 32, dropout: float = 0.2):
@@ -131,17 +137,19 @@ class MLPNet(nn.Module):
 
 def make_net(model: str, task: str, cfg: dict, input_dim: int) -> nn.Module:
     torch.manual_seed(cfg["seed"])
+    drop = float(cfg.get("dropout", 0.2))
     if model == "MLP":
-        return MLPNet(input_dim, task, cfg["hidden"])
+        return MLPNet(input_dim, task, cfg["hidden"], dropout=drop)
     if model == "Mamba SSM":
-        return MambaNet(input_dim, task, cfg["units"])
-    return RecurrentNet(input_dim, task, cfg["units"], model)
+        return MambaNet(input_dim, task, cfg["units"], dropout=drop)
+    return RecurrentNet(input_dim, task, cfg["units"], model, dropout=drop)
 
 
-def train_net(net, task, Xa, ya, Xb, yb, seed, max_epochs=400, patience=20):
+def train_net(net, task, Xa, ya, Xb, yb, seed, max_epochs=400, patience=20,
+              lr=LR):
     torch.set_num_threads(1)
     criterion = nn.BCELoss() if task == "classification" else nn.MSELoss()
-    opt = torch.optim.Adam(net.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
+    opt = torch.optim.Adam(net.parameters(), lr=lr, weight_decay=WEIGHT_DECAY)
     loader = DataLoader(
         TensorDataset(torch.as_tensor(Xa, dtype=torch.float32),
                       torch.as_tensor(ya, dtype=torch.float32).view(-1, 1)),

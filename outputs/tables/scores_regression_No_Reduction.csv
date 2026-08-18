@@ -1,9 +1,9 @@
 model,Carrot_mean,Carrot_ci95,Carrot_best,Lettuce_mean,Lettuce_ci95,Lettuce_best,Onion_mean,Onion_ci95,Onion_best
-Decision tree,0.2294,0.049,False,0.6904,0.0367,False,0.444,0.0403,False
-Random forest,0.2358,0.0475,False,0.7125,0.0355,True,0.5016,0.0262,True
-k-NN,0.2019,0.0695,False,0.7034,0.0344,False,0.4833,0.0366,False
-MLP,0.2157,0.036,False,0.689,0.0308,False,0.4682,0.0453,False
-LSTM,0.2109,0.0437,False,0.6835,0.0312,False,0.4985,0.0498,False
-RNN GRU,0.2326,0.0579,False,0.6717,0.0368,False,0.4929,0.0421,False
-Mamba SSM,0.2255,0.0463,False,0.6775,0.0345,False,0.4743,0.0435,False
-TabPFN,0.259,0.0415,True,0.6925,0.0333,False,0.4695,0.0397,False
+Decision tree,0.2535,0.0593,False,0.688,0.0311,False,0.4341,0.0478,False
+Random forest,0.281,0.0551,True,0.7239,0.0257,True,0.4815,0.0494,False
+k-NN,0.2414,0.0627,False,0.7146,0.0343,False,0.4691,0.0463,False
+MLP,0.242,0.0514,False,0.7077,0.0293,False,0.4787,0.0317,False
+LSTM,0.242,0.0453,False,0.7048,0.0272,False,0.4879,0.0309,True
+RNN GRU,0.2017,0.0428,False,0.7059,0.0288,False,0.4845,0.039,False
+Mamba SSM,0.2556,0.0489,False,0.7084,0.03,False,0.4828,0.021,False
+TabPFN,0.2734,0.0497,False,0.7066,0.0258,False,0.4811,0.0294,False

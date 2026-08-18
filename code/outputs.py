@@ -124,6 +124,11 @@ def timing_table(runs: pd.DataFrame, out: Path) -> None:
 def figures(runs: pd.DataFrame, out: Path) -> None:
     """Boxplot comparisons per crop: models grouped by representation and
     representations grouped by model, for each task."""
+    # Type sized for reading at column width in print.
+    plt.rcParams.update({
+        "font.size": 17, "axes.titlesize": 23, "axes.labelsize": 20,
+        "xtick.labelsize": 17, "ytick.labelsize": 17, "legend.fontsize": 17,
+    })
     colors = list(plt.get_cmap("tab10").colors[:8])
     cells = runs.groupby(["task", "crop", "dr", "model"], as_index=False).agg(
         m=("score", "mean"))
@@ -132,7 +137,7 @@ def figures(runs: pd.DataFrame, out: Path) -> None:
     for fig_no, (task, by) in enumerate(panels, start=2):
         metric = "F1" if task == "classification" else r"$R^2$"
         order = DRO if by == "dr" else MODELS
-        fig, axes = plt.subplots(3, 1, figsize=(10, 18.5))
+        fig, axes = plt.subplots(3, 1, figsize=(12, 20))
         for panel, (ax, crop) in enumerate(zip(axes, CROPS)):
             block = cells[(cells.task == task) & (cells.crop == crop)]
             vals = [block[block[by] == name]["m"].dropna().to_numpy()
@@ -145,15 +150,35 @@ def figures(runs: pd.DataFrame, out: Path) -> None:
             for key in ("whiskers", "caps", "medians"):
                 for line in bp[key]:
                     line.set_color("black")
+            # Scale each panel to its boxes and whiskers rather than to its
+            # extreme outliers. A single weak seed would otherwise stretch the
+            # axis and squeeze every box into a narrow band at the top, leaving
+            # most of the panel empty. Outliers outside the resulting view are
+            # not drawn; the boxes, whiskers and medians are unchanged.
+            wy = np.concatenate([w.get_ydata() for w in bp["whiskers"]])
+            wy = wy[np.isfinite(wy)]
+            if len(wy):
+                lo, hi = float(wy.min()), float(wy.max())
+                pad = 0.10 * (hi - lo) if hi > lo else max(abs(hi), 1.0) * 0.05
+                ylo, yhi = lo - pad, hi + pad
+                for fl in bp["fliers"]:
+                    xd, yd = fl.get_xdata(), fl.get_ydata()
+                    keep = (yd >= ylo) & (yd <= yhi)
+                    fl.set_data(xd[keep], yd[keep])
+                ax.set_ylim(ylo, yhi)
+            ax.grid(axis="y", alpha=0.25, linewidth=0.8)
+            ax.set_axisbelow(True)
             labels = [("kNN" if x == "k-NN" else "Botcast" if x == "BOTCAST"
                        else x) for x in order]
-            ax.set_xticks(range(1, len(order) + 1), labels, rotation=40)
+            ax.set_xticks(range(1, len(order) + 1), labels, rotation=35,
+                          ha="right")
             ax.set_ylabel(f"{metric} Score")
             ax.set_title(f"{task.title()} - {crop}")
-            fig.text(.015, .985 - panel * .333, f"({chr(97 + panel)})",
-                     fontsize=20, fontweight="bold")
-        fig.tight_layout()
-        fig.savefig(out / f"Figure_{fig_no}.png", dpi=110)
+            fig.text(.012, .985 - panel * .333, f"({chr(97 + panel)})",
+                     fontsize=26, fontweight="bold")
+        fig.tight_layout(rect=[0.02, 0, 1, 1])
+        fig.savefig(out / f"Figure_{fig_no}.png", dpi=170,
+                    bbox_inches="tight")
         plt.close(fig)
 
 

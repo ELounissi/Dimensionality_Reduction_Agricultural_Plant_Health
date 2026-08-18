@@ -8,13 +8,23 @@ Models and their natural inputs:
   (strictly backward-looking; see pipeline.py).
 
 Protocol per (task, crop, reduction, seed): a shared deterministic 80/20
-split. Classical models select hyperparameters by five-fold CV inside the
-80% and refit on the full 80%. TabPFN uses its pretrained prior as-is (no
-hyperparameter search - the prior is the method). Neural models carve a 10%
-validation share out of the 80% for early stopping (400 epochs, patience
-20, best epoch restored); their architecture is selected once per cell by
-two repeats of five-fold CV on the selection split. The untouched 20% test
-partition is scored exactly once per run. One model per run; no ensembling.
+row-level split of the plant-day observations. Classical models select
+hyperparameters by five-fold CV inside each seed's own training partition
+and refit on the full 80%. TabPFN uses its pretrained prior as-is (no
+hyperparameter search - the prior is the method). Neural models carve a
+10% validation share out of the 80% for early stopping (400 epochs,
+patience 20, best epoch restored). Every neural model - MLP, LSTM,
+RNN GRU, and Mamba SSM - selects its full configuration (architecture,
+history length K where applicable, dropout rate, and learning rate) by
+five-fold CV inside each seed's own training partition, exactly as the
+classical models select their grids. The remaining training constants
+(weight decay 1e-4, batch 32, and the projection-and-head layout) are
+fixed globally.
+The untouched 20% test partition is scored exactly once per run. One
+model per run; no ensembling.
+
+Inputs follow the one-step-ahead observed-history convention documented
+in pipeline.py; no value dated at or after a prediction day is ever used.
 """
 from __future__ import annotations
 
@@ -35,23 +45,29 @@ import pandas as pd  # noqa: E402
 from joblib import Parallel, delayed  # noqa: E402
 from sklearn.base import clone  # noqa: E402
 from sklearn.metrics import accuracy_score, f1_score, r2_score  # noqa: E402
-from sklearn.model_selection import KFold, StratifiedKFold, train_test_split  # noqa: E402
+# grouped splitters live in dr_agri.splits
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "code"))
 from nets import make_net, predict_net, train_net  # noqa: E402
-from pipeline import DRO, Cell  # noqa: E402
+from pipeline import DRO, MODELS, Cell  # noqa: E402
 
 REPO = HERE / "code"
 sys.path.insert(0, str(REPO))
-from dr_agri.evaluate import VAL_FRACTION_OF_TRAIN, _outer_split  # noqa: E402
+from dr_agri.splits import _folds, _outer_split, _val_split  # noqa: E402
 from dr_agri.models import CLASSICAL_GRIDS, make_classical  # noqa: E402
 
-SELECTION_SEED = 0
 CLASSICAL = ("Decision tree", "Random forest", "k-NN")
+CROPS = ("Carrot", "Lettuce", "Onion")
 SEQ_MODELS = ("LSTM", "RNN GRU", "Mamba SSM")
-RNN_GRID = [dict(K=k, units=u) for k, u in product((2, 4, 6), (32, 64))]
-MLP_GRID = [dict(hidden=h) for h in ((64, 32), (32, 16), (128, 64))]
+PER_SEED_NEURAL = ("MLP", "LSTM", "RNN GRU", "Mamba SSM")
+DROPOUTS = (0.0, 0.1, 0.2, 0.3, 0.4)
+LRS = (1e-3, 3e-4)
+RNN_GRID = [dict(K=k, units=u, dropout=d, lr=lr)
+            for k, u, d, lr in product((2, 4, 6), (32, 64), DROPOUTS, LRS)]
+MLP_GRID = [dict(hidden=h, dropout=d, lr=lr)
+            for h, d, lr in product(((64, 32), (32, 16), (128, 64)),
+                                    DROPOUTS, LRS)]
 
 
 def selection_score(task, y, y_hat):
@@ -82,14 +98,13 @@ def _grid(name):
 def run_classical(crop, task, dr, name, seed):
     cell = CELL(crop, task)
     y = cell.y
-    tr, te = _outer_split(y, task, seed)
+    tr, te = _outer_split(y, task, seed, cell.group)
     t0 = time.perf_counter()
-    cv = (StratifiedKFold(5, shuffle=True, random_state=seed)
-          if task == "classification" else KFold(5, shuffle=True, random_state=seed))
+    folds = _folds(tr, y, task, seed, cell.group)
     grid = _grid(name)
     base = make_classical(name, task, random_state=seed)
     scores = np.zeros(len(grid))
-    for a, b in cv.split(tr, y[tr]):
+    for a, b in folds:
         ia, ib = tr[a], tr[b]
         Z = cell.project(ia, dr, seed)
         for gi, params in enumerate(grid):
@@ -111,7 +126,7 @@ def run_tabpfn(crop, task, dr, seed):
     device = os.environ.get("TABPFN_DEVICE", "cpu")
     cell = CELL(crop, task)
     y = cell.y
-    tr, te = _outer_split(y, task, seed)
+    tr, te = _outer_split(y, task, seed, cell.group)
     t0 = time.perf_counter()
     Z = cell.project(tr, dr, seed)
     model = (TabPFNClassifier(device=device, random_state=seed)
@@ -129,49 +144,75 @@ def run_tabpfn(crop, task, dr, seed):
 
 
 # ------------------------------------------------------------------ neural
-def _views(cell, dr, seed, model, cfg, fit_idx, idx_sets):
+def _mask(n, idx):
+    m = np.zeros(n, dtype=bool)
+    m[idx] = True
+    return m
+
+
+def _views(cell, dr, seed, model, cfg, fit_idx, idx_sets, allowed_sets):
     Z = cell.project(fit_idx, dr, seed)
     if model == "MLP":
         return [Z[ix] for ix in idx_sets]
-    return [cell.sequences(ix, Z, cfg["K"]) for ix in idx_sets]
+    return [cell.sequences(ix, Z, cfg["K"], allowed=al)
+            for ix, al in zip(idx_sets, allowed_sets)]
 
 
-def cv_neural(crop, task, dr, model, cfg):
+def run_neural_per_seed(crop, task, dr, model, seed):
+    """Per-seed selection: every candidate architecture and training
+    configuration is scored by five-fold CV inside this seed's own
+    training partition (as for the classical models), and the winner is
+    trained once with early stopping and evaluated once on the test
+    partition. Sequence inputs built for fitting or selection draw their
+    history exclusively from the training side (`allowed` in
+    pipeline.Cell.sequences), so the fitted weights are independent of
+    every held-out observation; test rows are then scored once, from the
+    history observed before their own day."""
     cell = CELL(crop, task)
     y = cell.y
-    tr_all, _ = _outer_split(y, task, SELECTION_SEED)
-    scores = []
-    for repeat in (0, 1):
-        cv = (StratifiedKFold(5, shuffle=True, random_state=repeat)
-              if task == "classification"
-              else KFold(5, shuffle=True, random_state=repeat))
-        for a, b in cv.split(tr_all, y[tr_all]):
-            ia, ib = tr_all[a], tr_all[b]
-            Xa, Xb = _views(cell, dr, SELECTION_SEED, model, cfg, ia, [ia, ib])
-            net = make_net(model, task, dict(cfg, seed=SELECTION_SEED),
-                           Xa.shape[-1])
-            net, _ = train_net(net, task, Xa, y[ia], Xb, y[ib], SELECTION_SEED)
-            scores.append(selection_score(task, y[ib], predict_net(net, task, Xb)))
-    return dict(task=task, crop=crop, dr=dr, model=model, **cfg,
-                mean_cv_score=float(np.mean(scores)))
-
-
-def run_neural(crop, task, dr, model, cfg, seed):
-    cell = CELL(crop, task)
-    y = cell.y
-    tr_all, te = _outer_split(y, task, seed)
-    strat = y[tr_all] if task == "classification" else None
-    tr, va = train_test_split(tr_all, test_size=VAL_FRACTION_OF_TRAIN,
-                              random_state=seed, shuffle=True, stratify=strat)
+    tr, te = _outer_split(y, task, seed, cell.group)
     t0 = time.perf_counter()
-    X_tr, X_va, X_te = _views(cell, dr, seed, model, cfg, tr, [tr, va, te])
-    net = make_net(model, task, dict(cfg, seed=seed), X_tr.shape[-1])
-    net, epochs = train_net(net, task, X_tr, y[tr], X_va, y[va], seed)
+    grid = MLP_GRID if model == "MLP" else RNN_GRID   # RNN grid serves LSTM, GRU, and Mamba
+    folds = _folds(tr, y, task, seed, cell.group)
+    ks = sorted({c["K"] for c in grid}) if model != "MLP" else []
+    m_tr = _mask(cell.n, tr)
+    scores = np.zeros(len(grid))
+    for a, b in folds:
+        ia, ib = tr[a], tr[b]
+        Z = cell.project(ia, dr, seed)
+        if model == "MLP":
+            Xa_by, Xb_by = {None: Z[ia]}, {None: Z[ib]}
+        else:
+            # gradient inputs see training-fold history only; the fold's
+            # held-out inputs see the training partition
+            m_ia = _mask(cell.n, ia)
+            Xa_by = {k: cell.sequences(ia, Z, k, allowed=m_ia) for k in ks}
+            Xb_by = {k: cell.sequences(ib, Z, k, allowed=m_tr) for k in ks}
+        for gi, cfg in enumerate(grid):
+            key = cfg.get("K")
+            net = make_net(model, task, dict(cfg, seed=seed),
+                           Xa_by[key].shape[-1])
+            net, _ = train_net(net, task, Xa_by[key], y[ia],
+                               Xb_by[key], y[ib], seed, lr=cfg["lr"])
+            scores[gi] += selection_score(
+                task, y[ib], predict_net(net, task, Xb_by[key]))
+    best = grid[int(np.argmax(scores))]
+    tr_fit, va = _val_split(tr, y, seed, cell.group)
+    # Gradient inputs draw history from the fitted subset, early-stopping
+    # inputs from the training partition, test inputs from the full
+    # observed past; no held-out observation reaches anything fitted.
+    X_tr, X_va, X_te = _views(cell, dr, seed, model, best, tr_fit,
+                              [tr_fit, va, te],
+                              [_mask(cell.n, tr_fit), m_tr, None])
+    net = make_net(model, task, dict(best, seed=seed), X_tr.shape[-1])
+    net, epochs = train_net(net, task, X_tr, y[tr_fit], X_va, y[va], seed,
+                            lr=best["lr"])
     y_hat = predict_net(net, task, X_te)
     return dict(task=task, crop=crop, dr=dr, model=model, seed=seed,
                 score=float(final_score(task, y[te], y_hat)),
                 fit_seconds=time.perf_counter() - t0, epochs_run=epochs,
-                n_train=len(tr), n_test=len(te), best_params=json.dumps(cfg))
+                n_train=len(tr_fit), n_test=len(te),
+                best_params=json.dumps(best))
 
 
 def main():
@@ -196,6 +237,8 @@ def main():
                     help="explicit seed values (default: 0-9)")
     ap.add_argument("--n-jobs", type=int, default=os.cpu_count() or 1,
                     help="parallel worker processes")
+    ap.add_argument("--skip-outputs", action="store_true",
+                    help="do not build tables and figures after the run")
     ap.add_argument("--out", default="results",
                     help="output directory for runs.csv")
     args = ap.parse_args()
@@ -207,48 +250,51 @@ def main():
     cells = [(c, t, d) for t in args.tasks for c in args.crops for d in args.dr]
     t0 = time.perf_counter()
 
-    cv_jobs = [(c, t, d, m, cfg) for c, t, d in cells
-               for m, grid in (("MLP", MLP_GRID), ("LSTM", RNN_GRID),
-                               ("RNN GRU", RNN_GRID), ("Mamba SSM", RNN_GRID))
-               if m in args.models
-               for cfg in grid]
-    print(f"cells={len(cells)} neural-cv jobs={len(cv_jobs)}", flush=True)
-    if cv_jobs:
-        sel = pd.DataFrame(Parallel(n_jobs=args.n_jobs, backend="loky", verbose=5,
-                                    batch_size=1)(
-            delayed(cv_neural)(c, t, d, m, cfg) for c, t, d, m, cfg in cv_jobs))
-        sel.to_csv(out / "neural_selection.csv", index=False)
-        best_rows = (sel.sort_values("mean_cv_score", ascending=False,
-                                     kind="mergesort")
-                     .groupby(["task", "crop", "dr", "model"], as_index=False)
-                     .first())
-        best_rows.to_csv(out / "neural_best.csv", index=False)
-    else:
-        best_rows = pd.DataFrame(
-            columns=["task", "crop", "dr", "model", "hidden", "K", "units"])
-
-    def cfg_of(t, c, d, m):
-        r = best_rows[(best_rows.task == t) & (best_rows.crop == c)
-                      & (best_rows.dr == d) & (best_rows.model == m)].iloc[0]
-        if m == "MLP":
-            h = r["hidden"]
-            return dict(hidden=tuple(int(x) for x in
-                                     (h if isinstance(h, tuple) else eval(str(h)))))
-        return dict(K=int(r["K"]), units=int(r["units"]))
-    print(f"selection done in {time.perf_counter()-t0:.0f}s", flush=True)
+    print(f"cells={len(cells)} models={args.models} seeds={args.seeds}",
+          flush=True)
 
     t1 = time.perf_counter()
     jobs = ([delayed(run_classical)(c, t, d, m, s) for c, t, d in cells
              for m in CLASSICAL if m in args.models for s in args.seeds]
             + ([delayed(run_tabpfn)(c, t, d, s) for c, t, d in cells
                 for s in args.seeds] if "TabPFN" in args.models else [])
-            + [delayed(run_neural)(c, t, d, m, cfg_of(t, c, d, m), s)
-               for c, t, d in cells for m in ("MLP",) + SEQ_MODELS
+            + [delayed(run_neural_per_seed)(c, t, d, m, s)
+               for c, t, d in cells for m in PER_SEED_NEURAL
                if m in args.models for s in args.seeds])
     rows = Parallel(n_jobs=args.n_jobs, backend="loky", verbose=5, batch_size=1)(jobs)
-    pd.DataFrame(rows).to_csv(out / "runs.csv", index=False)
+    frame = pd.DataFrame(rows)
+    frame.to_csv(out / "runs.csv", index=False)
     print(f"finals: {len(rows)} runs in {time.perf_counter()-t1:.0f}s -> {out}",
           flush=True)
+
+    # Tables and figures come free with a complete run, so the full benchmark
+    # leaves nothing further to invoke. They are built only when every model,
+    # representation, crop and task is present, because the summary tables
+    # compare across the whole grid; a partial run writes its runs.csv and says
+    # so. Regenerating at any time stays possible with
+    # `python code/outputs.py --results <dir>`.
+    full = (set(frame.model) >= set(MODELS) and set(frame.dr) >= set(DRO)
+            and set(frame.crop) >= set(CROPS)
+            and set(frame.task) >= {"classification", "regression"})
+    if args.skip_outputs or not full:
+        if not args.skip_outputs:
+            print("outputs: partial run, skipping tables and figures "
+                  "(rerun the full grid, or use code/outputs.py)", flush=True)
+    else:
+        from outputs import (figures, rankings, score_tables,  # noqa: E402
+                             timing_table, win_loss_tables)
+        tables = HERE / "outputs" / "tables"
+        figs = HERE / "outputs" / "figures"
+        tables.mkdir(parents=True, exist_ok=True)
+        figs.mkdir(parents=True, exist_ok=True)
+        score_tables(frame, tables)
+        win_loss_tables(frame, tables)
+        rankings(frame, tables)
+        timing_table(frame, tables)
+        figures(frame, figs)
+        print(f"outputs: {len(list(tables.glob('*.csv')))} tables and "
+              f"{len(list(figs.glob('*.png')))} figures under "
+              f"{HERE / 'outputs'}", flush=True)
 
 
 if __name__ == "__main__":

@@ -1,9 +1,9 @@
 model,No Reduction,No Reduction_best,PCA,PCA_best,KernelPCA,KernelPCA_best,Isomap,Isomap_best,MDS,MDS_best,BOTCAST,BOTCAST_best
-Decision tree,2/-1,False,2/-2,False,0/-3,False,0/-4,False,0/-2,False,1/-4,False
-Random forest,3/0,False,3/-1,False,4/0,True,3/-1,False,3/0,False,2/-2,False
-k-NN,4/-1,True,0/-1,False,2/0,False,1/0,False,3/0,False,0/-4,False
-MLP,2/0,False,2/-1,False,1/0,False,1/-1,False,2/0,False,1/-2,False
-LSTM,3/-1,False,4/0,True,1/-2,False,1/-1,False,4/0,True,1/-2,False
-RNN GRU,3/-1,False,4/0,False,2/0,False,2/-1,False,3/0,False,2/-2,False
-Mamba SSM,1/-2,False,0/-3,False,1/-1,False,1/-3,False,1/-2,False,3/-2,True
-TabPFN,2/-1,False,2/0,False,1/-2,False,5/-1,True,2/-1,False,2/-2,False
+Decision tree,2/-2,False,1/-2,False,0/-3,False,0/-4,False,0/-3,False,1/-2,False
+Random forest,5/0,True,3/-1,False,4/-1,True,2/-1,False,3/0,False,1/-2,False
+k-NN,3/0,False,2/0,False,2/0,False,4/0,False,4/0,False,0/-4,False
+MLP,3/0,False,3/0,False,1/0,False,0/0,False,2/-1,False,1/-2,False
+LSTM,4/0,False,3/0,False,3/0,False,1/-3,False,4/0,False,2/-3,False
+RNN GRU,2/-3,False,3/-1,False,3/0,False,0/-3,False,3/0,False,2/-2,False
+Mamba SSM,4/0,False,1/-1,False,2/-1,False,0/-3,False,0/-2,False,3/-2,True
+TabPFN,5/-2,False,5/-1,True,2/-2,False,5/-1,True,5/-1,True,2/-2,False

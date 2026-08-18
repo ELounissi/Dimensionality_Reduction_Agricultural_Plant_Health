@@ -18,6 +18,32 @@ representation of the released data.
 All preprocessing (imputation, standardization, reduction) is fitted on
 training rows only. Plant-pair distances are aligned for the 0/1-based id
 offset between the distance files and the observation tables.
+
+Evaluation convention: one-step-ahead prediction with observed history.
+Every prediction at plant p, day t uses only observations dated strictly
+before t, and a row's own target never appears in its own feature vector,
+directly or indirectly.
+
+Because the outer split holds out whole plants (see dr_agri/splits.py),
+each plant's visit history lies entirely on one side of the partition.
+Every sequence is therefore complete: a training row's history consists of
+earlier visits to the same, training-side plant, and a scored row keeps the
+full history a deployed model would hold for that plant. No held-out
+observation reaches a fitting input, so the fitted weights are a function
+of the training partition alone, and no sequence has to be truncated to
+achieve it.
+
+Only the cross-plant channel needs scoping: the inverse-distance neighbor
+severity of a sweep aggregates the other plants observed in that sweep, so
+when inputs are built for fitting or selection the aggregate is restricted
+to the fitting partition (``allowed`` in :meth:`Cell.sequences`, which also
+filters history steps should a caller pass a partition that cuts across
+plants).
+
+The pipeline's remaining leakage-free guarantees concern fitting:
+imputation, standardization, dimensionality reduction, hyperparameter
+selection, and early stopping use training-side data only, and each test
+partition is scored exactly once per run.
 """
 from __future__ import annotations
 
@@ -60,6 +86,11 @@ class Cell:
         self.farm = frame["FarmID"].to_numpy()
         self.plant = frame["Plant_ID"].to_numpy()
         self.date = frame["Date"].to_numpy()
+        # one group per monitored plant: the unit the outer split holds out,
+        # which keeps each visit history whole (see dr_agri/splits.py)
+        self.group = np.unique(
+            np.stack([self.farm, self.plant]).T.astype(str), axis=0,
+            return_inverse=True)[1]
 
         # chronological prior-visit lists per plant
         order = np.lexsort((self.date, self.plant, self.farm))
@@ -93,14 +124,14 @@ class Cell:
         # neighbor severity of each row's own sweep: used only as PAST
         # information (each history step's sweep predates the prediction day)
         self.press = np.array([self._idw(i) for i in range(self.n)])
-        self.press_prev = np.where(self.prev >= 0, self.press[self.prev], 0.0)
+        self._press_cache: dict[bytes, np.ndarray] = {}
 
-    def _idw(self, i: int) -> float:
+    def _idw(self, i: int, allowed: np.ndarray | None = None) -> float:
         rows = self.by_sweep[(self.farm[i], self.date[i])]
         weights = self.w.get((self.farm[i], int(self.plant[i])), {})
         num = den = tot = cnt = 0.0
         for j in rows:
-            if j == i:
+            if j == i or (allowed is not None and not allowed[j]):
                 continue
             tot += self.sev[j]
             cnt += 1
@@ -111,6 +142,16 @@ class Cell:
         if den > 0:
             return num / den
         return tot / cnt if cnt else 0.0
+
+    def _pressure(self, allowed: np.ndarray | None) -> np.ndarray:
+        """Per-row IDW neighbor severity drawing only on allowed rows."""
+        if allowed is None:
+            return self.press
+        key = allowed.tobytes()
+        if key not in self._press_cache:
+            self._press_cache[key] = np.array(
+                [self._idw(i, allowed) for i in range(self.n)])
+        return self._press_cache[key]
 
     def project(self, train_idx: np.ndarray, dr_name: str, seed: int) -> np.ndarray:
         """Impute, standardize, reduce, re-standardize; fits on train only."""
@@ -127,15 +168,29 @@ class Cell:
             Z = StandardScaler().fit(Z[train_idx]).transform(Z)
         return Z.astype(np.float32)
 
-    def sequences(self, idxs: np.ndarray, Z: np.ndarray, K: int) -> np.ndarray:
+    def sequences(self, idxs: np.ndarray, Z: np.ndarray, K: int,
+                  allowed: np.ndarray | None = None) -> np.ndarray:
         """(len(idxs), K+1, Z-dim + 8) sequence input for the recurrent and
         state-space models; strictly backward-looking."""
+        # Past observations only: every value written here is dated strictly
+        # before the prediction day t (the current step carries the last
+        # *observed* context, never the row's own target). See the module
+        # docstring for the one-step-ahead evaluation convention.
+        # `allowed` restricts the history sources. Inputs built for fitting
+        # or selection pass their fitting partition, so held-out rows are
+        # simply absent from every training-side sequence - no channel of a
+        # training input, and hence no gradient, depends on a held-out
+        # observation. Scored rows pass None: they condition on the full
+        # past observed before their own day, as in deployment.
+        press = self._pressure(allowed)
         d = Z.shape[1]
         out = np.zeros((len(idxs), K + 1, d + N_STEP), dtype=np.float32)
         for r, i in enumerate(idxs):
-            steps = self.past[i][-K:] + [i]
+            hist = (self.past[i] if allowed is None
+                    else [j for j in self.past[i] if allowed[j]])
+            steps = hist[-K:] + [i]
             offset = K + 1 - len(steps)
-            prev = self.past[i][-1] if self.past[i] else None
+            prev = hist[-1] if hist else None
             for s, j in enumerate(steps):
                 row = out[r, offset + s]
                 row[:d] = Z[j]
@@ -145,7 +200,7 @@ class Cell:
                     row[d + 0] = self.sev[src]
                     row[d + 1] = self.others[src, 0]
                     row[d + 2] = self.others[src, 1]
-                    row[d + 3] = self.press[src] if not current else self.press_prev[i]
+                    row[d + 3] = press[src]
                 row[d + 4] = (self.date[i] - self.date[j]) / 30.0
                 row[d + 5] = 0.5 if current else 1.0
                 row[d + 6] = 1.0 if src is not None else 0.0
