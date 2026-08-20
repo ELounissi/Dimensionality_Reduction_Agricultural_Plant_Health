@@ -9,12 +9,12 @@ season.
 The comparison spans four model families, each consuming the data
 representation it is designed for:
 
-| Family | Models | Input |
-|---|---|---|
-| Tree and neighbor methods | Decision tree, Random forest, k-NN | sampling-day feature vector |
-| Feed-forward network | MLP | sampling-day feature vector |
-| Pretrained tabular foundation model | TabPFN (v3) | sampling-day feature vector |
-| Sequence models | LSTM, RNN GRU, Mamba SSM | the plant's recent visit history |
+| Family | Models |
+|---|---|
+| Tree and neighbor methods | Decision tree, Random forest, k-NN |
+| Feed-forward network | MLP |
+| Pretrained tabular foundation model | TabPFN (v3) |
+| Sequence models | LSTM, RNN GRU, Mamba SSM |
 
 Representations: **No Reduction**, **PCA**, **KernelPCA**, **Isomap**,
 **MDS**, and **BOTCAST** (an expert-defined agronomic feature set). Tasks:
