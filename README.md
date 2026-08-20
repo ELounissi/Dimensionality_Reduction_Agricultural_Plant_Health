@@ -24,10 +24,9 @@ disease-occurrence classification (F1) and disease-severity regression
 ## Highlights
 
 - **Rigorous protocol with a leakage-free fitting pipeline.** Shared
-  deterministic 80/20 splits per seed, holding out whole plants so that
-  no held-out observation reaches any fitting input while every visit
-  history stays intact; imputation, standardization, every reduction,
-  selection, and early stopping fitted on training-side data only; the
+  deterministic 80/20 train/test splits per seed.
+  Imputation, standardization, every reduction,
+  selection, and early stopping fitted on training-side data only. The
   test partition is scored exactly once per run; one model per run.
   Inputs follow the standard one-step-ahead convention: predictions at
   day *t* may use any observation recorded before *t*, and never a
