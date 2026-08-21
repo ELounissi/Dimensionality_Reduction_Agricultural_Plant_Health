@@ -27,13 +27,14 @@ disease-occurrence classification (F1) and disease-severity regression
   deterministic 80/20 train/test splits per seed.
   Imputation, standardization, every reduction,
   selection, and early stopping fitted on training-side data only. The
-  test partition is scored exactly once per run; one model per run.
+  test partition is only seen and used after all operations and parameter
+  selection and training have finished.
   Inputs follow the standard one-step-ahead convention: predictions at
-  day *t* may use any observation recorded before *t*, and never a
-  row's own target.
+  day *t* may use any observation recorded before *t*, ensuring no
+  temporal leakage.
 - **Fair treatment for every model.** Classical models receive a
   cross-validated hyperparameter search, neural models a cross-validated
-  architecture search with early stopping, and TabPFN its pretrained
+  architecture search with early stopping, and TabPFN uses its pretrained
   prior. Sequence models additionally consume the temporal structure the
   dataset was designed to expose - strictly backward-looking.
 - **Everything ships with the code.** The full run-level results
